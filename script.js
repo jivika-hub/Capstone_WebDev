@@ -1,51 +1,49 @@
-// CONNECTING TO SUPABASE
-const SUPABASE_URL = "https://mlqzjzqxgvooirgcuubm.supabase.co";
-const SUPABASE_KEY = "sb_publishable_FX5C79EUIeF3VDOfJxpVqQ_NH67Gn6K";
-
-const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// 📦 SELECT GRID
+//  SELECT GRID
 const grid = document.querySelector(".grid");
 
-// LOAD DATA FROM DATABASE
-async function loadItems() {
-    const { data, error } = await client
-        .from('items')
-        .select('*');
+// LOAD ITEMS FROM FLASK
+async function loadItems(filter = "all") {
+    try {
+        const res = await fetch("http://127.0.0.1:5000/items");
+        const data = await res.json();
 
-    if (error) {
-        console.error(error);
-        return;
-    }
+        grid.innerHTML = "";
 
-    grid.innerHTML = "";
+        data.forEach(item => {
 
-    data.forEach(item => {
-        const imageUrl = item.image && item.image.startsWith("http")
-            ? item.image
-            : "https://via.placeholder.com/150";
+            // Apply filter
+            if (filter !== "all" && item.status !== filter) return;
 
-        const card = `
-        <div class="card">
-            <img src="${imageUrl}">
-            <div class="card-body">
-                <span class="tag ${item.status}">${item.status}</span>
-                <h3>${item.title}</h3>
-                <p>${item.description}</p>
-                <small>${item.location}</small>
+            const imageUrl = item.image && item.image.startsWith("http")
+                ? item.image
+                : "https://via.placeholder.com/150";
+
+            const card = `
+            <div class="card">
+                <img src="${imageUrl}">
+                <div class="card-body">
+                    <span class="tag ${item.status}">${item.status}</span>
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
+                    <small>${item.location}</small>
+                </div>
             </div>
-        </div>
-        `;
+            `;
 
-        grid.innerHTML += card;
-    });
+            grid.innerHTML += card;
+        });
+
+    } catch (err) {
+        console.error("Error loading items:", err);
+    }
 }
-//  ADDING NEW ITEM
+
+//  ADD ITEM USING FLASK
 async function addItem() {
     const title = prompt("Enter title:");
     const description = prompt("Enter description:");
     const location = prompt("Enter location:");
-    const status = prompt("lost or found:");
+    const status = prompt("lost or found:").toLowerCase();
     const image = prompt("Enter image URL:");
 
     if (!image.startsWith("http")) {
@@ -53,21 +51,36 @@ async function addItem() {
         return;
     }
 
-    const { error } = await client
-        .from('items')
-        .insert([
-            { title, description, location, status, image }
-        ]);
+    try {
+        await fetch("http://127.0.0.1:5000/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                title,
+                description,
+                location,
+                status,
+                image
+            })
+        });
 
-    if (error) {
-        console.error(error);
+        loadItems();
+
+    } catch (err) {
+        console.error("Error adding item:", err);
     }
-
-    loadItems();
 }
 
-// ▶ INITIAL LOAD
-loadItems();
+//  BUTTON EVENTS
+document.getElementById("addBtn").addEventListener("click", addItem);
+document.getElementById("navAdd").addEventListener("click", addItem);
 
-// BUTTON CLICK
-document.querySelector("button").addEventListener("click", addItem);
+//  FILTER BUTTONS
+document.getElementById("filterAll").addEventListener("click", () => loadItems("all"));
+document.getElementById("filterLost").addEventListener("click", () => loadItems("lost"));
+document.getElementById("filterFound").addEventListener("click", () => loadItems("found"));
+
+//  INITIAL LOAD
+loadItems();
