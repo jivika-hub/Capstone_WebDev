@@ -16,7 +16,7 @@
 
         <div class="nav-links">
             <a href="#">Home</a>
-            <a href="#">Add Item</a>
+            <a href="#" id="navAdd">Add Item</a>
         </div>
     </header>
 
@@ -27,9 +27,9 @@
         <aside class="sidebar">
 
             <p class="section-title">Categories</p>
-            <div class="item active">All</div>
-            <div class="item">Lost</div>
-            <div class="item">Found</div>
+            <div class="item active" id="filterAll">All</div>
+            <div class="item" id="filterLost">Lost</div>
+            <div class="item" id="filterFound">Found</div>
 
             <p class="section-title">Locations</p>
             <div class="item">Library</div>
@@ -48,51 +48,18 @@
                     <p>Helping students reconnect with their belongings</p>
                 </div>
 
-                <button>+ Report Item</button>
+                <button id="addBtn">+ Report Item</button>
             </div>
 
             <!-- CARDS GRID -->
             <div class="grid">
-
-                <!-- CARD 1 -->
-                <div class="card">
-                    <img src="https://peeperly.in/cdn/shop/files/202602231042183401_airpodscase_1_1080x.webp?v=1775300581" alt="AirPods">
-                    <div class="card-body">
-                        <span class="tag found">Found</span>
-                        <h3>AirPods Case</h3>
-                        <p>Found near library benches</p>
-                        <small>Library</small>
-                    </div>
-                </div>
-
-                <!-- CARD 2 -->
-                <div class="card">
-                    <img src="https://pexpo.in/cdn/shop/files/ELECTRO_Silver_433e777a-4d46-4049-88a1-1b2f8b8f11fc.jpg?v=1767698911" alt="Bottle">
-                    <div class="card-body">
-                        <span class="tag lost">Lost</span>
-                        <h3>Water Bottle</h3>
-                        <p>Lost in cafeteria area</p>
-                        <small>Cafeteria</small>
-                    </div>
-                </div>
-
-                <!-- CARD 3 -->
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519" alt="Keys">
-                    <div class="card-body">
-                        <span class="tag found">Found</span>
-                        <h3>Car Keys</h3>
-                        <p>Keys with blue lanyard</p>
-                        <small>Main Gate</small>
-                    </div>
-                </div>
-
+                <!-- JS will insert cards here -->
             </div>
 
         </main>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
     <script src="./script.js"></script>
 
 </body>
