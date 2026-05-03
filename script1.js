@@ -40,34 +40,3 @@ async function loadItems() {
         grid.innerHTML += card;
     });
 }
-//  ADDING NEW ITEM
-async function addItem() {
-    const title = prompt("Enter title:");
-    const description = prompt("Enter description:");
-    const location = prompt("Enter location:");
-    const status = prompt("lost or found:");
-    const image = prompt("Enter image URL:");
-
-    if (!image.startsWith("http")) {
-        alert("Enter valid image URL");
-        return;
-    }
-
-    const { error } = await client
-        .from('items')
-        .insert([
-            { title, description, location, status, image }
-        ]);
-
-    if (error) {
-        console.error(error);
-    }
-
-    loadItems();
-}
-
-// ▶ INITIAL LOAD
-loadItems();
-
-// BUTTON CLICK
-document.querySelector("button").addEventListener("click", addItem);
