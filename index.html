@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Lost & Found</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="logo">Campus Lost & Found</div>
+
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Add Item</a>
+        </div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <p class="section-title">Categories</p>
+            <div class="item active" data-filter="all">All</div>
+            <div class="item"  data-filter="lost">Lost</div>
+            <div class="item" data-filter="found">Found</div>
+
+            <p class="section-title">Locations</p>
+            <div class="item">Library</div>
+            <div class="item">Cafeteria</div>
+            <div class="item">Hostel</div>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main">
+
+            <!-- HEADER -->
+            <div class="header">
+                <div>
+                    <h1>Recent Listings</h1>
+                    <p>Helping students reconnect with their belongings</p>
+                </div>
+
+                <button>+ Report Item</button>
+            </div>
+
+            <!-- CARDS GRID -->
+            <div class="grid" id="itemsContainer">
+
+                <!-- CARD 1 -->
+                <div class="card">
+                    <img src="https://peeperly.in/cdn/shop/files/202602231042183401_airpodscase_1_1080x.webp?v=1775300581" alt="AirPods">
+                    <div class="card-body">
+                        <span class="tag found">Found</span>
+                        <h3>AirPods Case</h3>
+                        <p>Found near library benches</p>
+                        <small>Library</small>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="card">
+                    <img src="https://pexpo.in/cdn/shop/files/ELECTRO_Silver_433e777a-4d46-4049-88a1-1b2f8b8f11fc.jpg?v=1767698911" alt="Bottle">
+                    <div class="card-body">
+                        <span class="tag lost">Lost</span>
+                        <h3>Water Bottle</h3>
+                        <p>Lost in cafeteria area</p>
+                        <small>Cafeteria</small>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519" alt="Keys">
+                    <div class="card-body">
+                        <span class="tag found">Found</span>
+                        <h3>Car Keys</h3>
+                        <p>Keys with blue lanyard</p>
+                        <small>Main Gate</small>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
